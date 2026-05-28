@@ -11,7 +11,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/', methods=['GET'])
 def index():
-    return None
+    return render_template('index.html')
 
 
 @app.route('/speech-to-text', methods=['POST'])
