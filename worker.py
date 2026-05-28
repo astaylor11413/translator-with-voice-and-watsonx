@@ -52,9 +52,6 @@ def speech_to_text(audio_binary):
         print('recognized text',text)
         return text
 
-def text_to_speech(text, voice=""):
-    return None
-
 def watsonx_process_message(user_message):
     prompt = f"""
     Translate the following English sentence into Spanish. 
@@ -66,3 +63,23 @@ def watsonx_process_message(user_message):
     response_text = model.generate_text(prompt=prompt)
     print("watson-response:",response_text)
     return response_text.strip()
+
+def text_to_speech(text, voice=""):
+    base_url = "https://sn-watson-tts.labs.skills.network"
+    api_url = base_url+'/text-to-speech/api/v1/synthesize?output=output_text.wav'
+    
+    #Adding voice selection of user chose one for AI response
+    if voice != "" and voice != "default":
+        api_url+="&voice="+voice
+    
+    headers={
+        'Accept': 'audio/wav',
+        'Content-Type': 'application/json',
+    }
+    json_data={
+        'text':text
+    }
+    response = requests.post(api_url,headers=headers, data=json_data)
+    print('TTS response:',response)
+    return response.content
+
