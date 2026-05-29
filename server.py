@@ -52,7 +52,7 @@ def process_message_route():
             "watsonxResponseSpeech":watsonx_response_speech
         }),
         status=200,
-        mimetpye='application/json'
+        mimetype='application/json'
     )
     print(response)
     return response
